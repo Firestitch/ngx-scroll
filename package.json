@@ -1,6 +1,6 @@
 {
-  "name": "@firestitch/fs-scroll",
-  "description": "@firestitch/fs-scroll",
+  "name": "@firestitch/scroll",
+  "description": "@firestitch/scroll",
   "version": "0.1.0",
   "repository": {
     "type": "git",

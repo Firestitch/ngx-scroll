@@ -1,0 +1,8 @@
+<h2>{{loading}}</h2>
+<div class="container" fs-scroll style="height: 200px;" [(loading)]="loading" (scrolledDown)="loadMore()">
+  <table>
+    <tr *ngFor="let record of records">
+      Record #{{record}}
+    </tr>
+  </table>
+</div>

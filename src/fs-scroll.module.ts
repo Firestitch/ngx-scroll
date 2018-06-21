@@ -1,19 +1,21 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FsScrollDirective } from './directives';
+import { MatProgressSpinnerModule } from '@angular/material';
+import { FsScrollComponent } from './components';
 // import { FsComponentService } from './services';
 
 @NgModule({
   imports: [
     CommonModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
-    FsScrollDirective,
+    FsScrollComponent,
   ],
   entryComponents: [
   ],
   declarations: [
-    FsScrollDirective,
+    FsScrollComponent,
   ],
   providers: [
     // FsComponentService,
