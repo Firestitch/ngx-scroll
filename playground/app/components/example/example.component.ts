@@ -24,7 +24,7 @@ export class ExampleComponent implements OnInit {
       const newRecords = this.generateArray(20, this.page);
       this.records.push(...newRecords);
       this.loading = false;
-    }, 3000);
+    }, 500);
   }
 
   private generateArray(count, offset = 1) {
