@@ -11,7 +11,7 @@ import { fromEvent } from 'rxjs/observable/fromEvent';
 import { filter, map, pairwise, tap } from 'rxjs/operators';
 
 @Component({
-  selector: '[fs-scroll]',
+  selector: '[fsScroll]',
   templateUrl: 'fs-scroll.component.html',
   styleUrls: [ 'fs-scroll.component.scss' ],
 })
@@ -22,11 +22,11 @@ export class FsScrollComponent implements OnInit {
   @Input()  public activationDown = 85;
   @Input()  public loaderDiametr = 30;
   // @Input()  public refreshing = false;
-  @Input()  public loading    = false;
-  @Output() public loadingChange = new EventEmitter();
+  @Input()  public isLoading    = false;
+  @Output() public isLoadingChange = new EventEmitter();
 
   // @Output() public scrolledUp   = new EventEmitter();
-  @Output() public scrolledDown = new EventEmitter();
+  @Output() public load = new EventEmitter();
 
   @HostBinding('class') public selfClass = 'fs-scroll-wrapper';
 
@@ -56,13 +56,13 @@ export class FsScrollComponent implements OnInit {
         // ),
         // filter(() => !this.loading),
         // tap(() => {
-        //   this.loadingChange.next(true);
+        //   this.isLoadingChange.next(true);
         // })
       )
       // .subscribe((positions) => {
       //   console.log('scrolld');
-      //   // if (this.scrolledDown) {
-      //   //   this.scrolledDown.next();
+      //   // if (this.load) {
+      //   //   this.load.next();
       //   // }
       //   //
       //   // if (this.scrolledUp) {
@@ -77,12 +77,12 @@ export class FsScrollComponent implements OnInit {
         filter(positions =>
           this.isUserScrollingDown(positions) && this.isScrollExpectedPercentDown(positions[1])
         ),
-        filter(() => !this.loading),
+        filter(() => !this.isLoading),
         tap(() => {
-          this.loadingChange.next(true);
+          this.isLoadingChange.next(true);
         })
       ).subscribe(() => {
-        this.scrolledDown.next();
+        this.load.next();
     })
   }
 
