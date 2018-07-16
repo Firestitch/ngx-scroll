@@ -22,8 +22,8 @@ export class FsScrollComponent implements OnInit {
   @Input()  public activationDown = 85;
   @Input()  public loaderDiametr = 30;
   // @Input()  public refreshing = false;
-  @Input()  public isLoading    = false;
-  @Output() public isLoadingChange = new EventEmitter();
+  @Input()  public loading    = false;
+  @Output() public loadingChange = new EventEmitter();
 
   // @Output() public scrolledUp   = new EventEmitter();
   @Output() public load = new EventEmitter();
@@ -56,7 +56,7 @@ export class FsScrollComponent implements OnInit {
         // ),
         // filter(() => !this.loading),
         // tap(() => {
-        //   this.isLoadingChange.next(true);
+        //   this.loadingChange.next(true);
         // })
       )
       // .subscribe((positions) => {
@@ -77,9 +77,9 @@ export class FsScrollComponent implements OnInit {
         filter(positions =>
           this.isUserScrollingDown(positions) && this.isScrollExpectedPercentDown(positions[1])
         ),
-        filter(() => !this.isLoading),
+        filter(() => !this.loading),
         tap(() => {
-          this.isLoadingChange.next(true);
+          this.loadingChange.next(true);
         })
       ).subscribe(() => {
         this.load.next();

@@ -1,4 +1,4 @@
-<div class="container" fsScroll style="height: 200px;" [(isLoading)]="loading" (load)="loadMore()">
+<div class="container" fsScroll style="height: 200px;" [(loading)]="loading" (load)="loadMore()">
   <table>
     <tr *ngFor="let record of records">
       Record #{{record}}
