@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 import { FsScrollComponent } from './components';
 // import { FsComponentService } from './services';
 
@@ -8,6 +8,7 @@ import { FsScrollComponent } from './components';
   imports: [
     CommonModule,
     MatProgressSpinnerModule,
+    MatIconModule,
   ],
   exports: [
     FsScrollComponent,

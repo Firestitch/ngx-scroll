@@ -22,8 +22,9 @@ export class FsScrollComponent implements OnInit {
   @Input()  public activationDown = 85;
   @Input()  public loaderDiametr = 30;
   // @Input()  public refreshing = false;
-  @Input()  public loading    = false;
+  @Input()  public loading = false;
   @Output() public loadingChange = new EventEmitter();
+  @Input()  public completed = true;
 
   // @Output() public scrolledUp   = new EventEmitter();
   @Output() public load = new EventEmitter();
