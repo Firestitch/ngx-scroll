@@ -1,45 +1,90 @@
 import {
   Component,
   ElementRef,
-  EventEmitter,
   HostBinding,
   Input,
   OnInit,
-  Output
+  Output,
+  OnDestroy,
+  EventEmitter,
 } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
+import { Observable } from 'rxjs/Observable';
 import { filter, map, pairwise, tap } from 'rxjs/operators';
+
+import { FsScrollService } from '../../services';
+import { FsScrollInstance } from '../../classes';
+
 
 @Component({
   selector: '[fsScroll]',
   templateUrl: 'fs-scroll.component.html',
   styleUrls: [ 'fs-scroll.component.scss' ],
 })
-export class FsScrollComponent implements OnInit {
+export class FsScrollComponent implements OnInit, OnDestroy {
+
+  @Input('fsScroll')
+  set name(value) {
+    this.instance.name = value;
+  }
+
+  @Input()
+  set activationDown(value) {
+    this.instance.activationDown = (!value && value !== 0) ? 85 : value;
+  }
+
+  @Input()
+  set loaderDiametr(value) {
+    this.instance.loaderDiametr = (!value && value !== 0) ? 30 : value;
+  }
+
+  @Input()
+  set completed(value) {
+    this.instance.completed = value;
+  }
+
+  @Input()
+  set enabled(value) {
+    this.instance.enabled = value;
+  }
+
+  @Input()
+  set loading(value) {
+    this.instance.loading = value;
+  }
+
+  @Output()
+  get loadingChange(): Observable<boolean> {
+    return this.instance.loading$;
+  }
+
+  @Output()
+  get load(): EventEmitter<any> {
+    return this.instance.load$;
+  }
+
+  @HostBinding('class.fs-scroll-wrapper') public selfClass = true;
 
   public onScroll$;
-  // @Input()  public activationUp   = 10;
-  @Input()  public activationDown = 85;
-  @Input()  public loaderDiametr = 30;
-  // @Input()  public refreshing = false;
-  @Input()  public loading = false;
-  @Output() public loadingChange = new EventEmitter();
-  @Input()  public completed = true;
+  public instance: FsScrollInstance;
 
-  // @Output() public scrolledUp   = new EventEmitter();
-  @Output() public load = new EventEmitter();
-
-  @HostBinding('class') public selfClass = 'fs-scroll-wrapper';
-
-  constructor(private _el: ElementRef) {
-
+  constructor(public scroll: FsScrollService,
+              private _el: ElementRef) {
+    this.instance = new FsScrollInstance();
   }
 
   public ngOnInit() {
+    if (this.instance.name) {
+      this.scroll.pushInstance(this.instance);
+    }
     this.subscribeToScroll();
-    // this.uu();
     this.subscribeDown();
 
+  }
+
+  public ngOnDestroy() {
+    this.scroll.remove(this.name);
+    this.onScroll$.completed();
   }
 
   public subscribeToScroll() {
@@ -51,71 +96,32 @@ export class FsScrollComponent implements OnInit {
           clientHeight: e.target.clientHeight
         })),
         pairwise(),
-        // filter(positions =>
-        //   this.isUserScrollingDown(positions) && this.isScrollExpectedPercentDown(positions[1]) ||
-        //   this.isUserScrollingUp(positions) && this.isScrollExpectedPercentUp(positions[1])
-        // ),
-        // filter(() => !this.loading),
-        // tap(() => {
-        //   this.loadingChange.next(true);
-        // })
       )
-      // .subscribe((positions) => {
-      //   console.log('scrolld');
-      //   // if (this.load) {
-      //   //   this.load.next();
-      //   // }
-      //   //
-      //   // if (this.scrolledUp) {
-      //   //   this.scrolledUp.next();
-      //   // }
-      // })
   }
 
   public subscribeDown() {
     this.onScroll$
       .pipe(
+        filter(() => {
+          return this.instance.enabled;
+        }),
         filter(positions =>
           this.isUserScrollingDown(positions) && this.isScrollExpectedPercentDown(positions[1])
         ),
-        filter(() => !this.loading),
+        filter(() => !this.instance.loading),
         tap(() => {
-          this.loadingChange.next(true);
+          this.instance.loading = true;
         })
       ).subscribe(() => {
-        this.load.next();
+        this.instance.load$.next();
     })
   }
-
-  // public uu() {
-  //   this.onScroll$
-  //     .pipe(
-  //       filter(positions =>
-  //         this.isUserScrollingUp(positions) && this.isScrollExpectedPercentUp(positions[1])
-  //       ),
-  //       filter(() => !this.refreshing),
-  //       tap(() => {
-  //         this.refreshing = true;
-  //         // this.refreshing.next(true);
-  //       })
-  //     ).subscribe(() => {
-  //     console.log('up');
-  //   })
-  // }
-
-  // private isUserScrollingUp(positions) {
-  //   return positions[0].scrollTop > positions[1].scrollTop;
-  // }
 
   private isUserScrollingDown(positions) {
     return positions[0].scrollTop < positions[1].scrollTop;
   }
 
   private isScrollExpectedPercentDown(position) {
-    return ((position.scrollTop + position.clientHeight) / position.scrollHeight) > (this.activationDown / 100);
+    return ((position.scrollTop + position.clientHeight) / position.scrollHeight) > (this.instance.activationDown / 100);
   }
-
-  // private isScrollExpectedPercentUp(position) {
-  //   return (position.clientHeight / position.scrollHeight) < (this.activationDown / 100);
-  // }
 }

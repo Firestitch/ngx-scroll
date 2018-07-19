@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 import { FsScrollComponent } from './components';
+import { FsScrollService } from './services';
 // import { FsComponentService } from './services';
 
 @NgModule({
@@ -26,7 +27,7 @@ export class FsScrollModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: FsScrollModule,
-      // providers: [FsComponentService]
+      providers: [FsScrollService]
     };
   }
 }

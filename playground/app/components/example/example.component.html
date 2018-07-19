@@ -1,7 +1,9 @@
-<div class="container" fsScroll style="height: 200px;"
+<div class="container"
+     fsScroll
      [(loading)]="loading"
      (load)="loadMore()"
-     [completed]="completed">
+     [completed]="completed"
+     style="height: 200px">
   <table>
     <tr *ngFor="let record of records">
       Record #{{record}}
@@ -11,5 +13,11 @@
 
 <fieldset>
   <legend>Status</legend>
-  {{loading ? 'Loading' : 'Idle'}}
+  <div><b>Loading: </b> {{ loading ? 'Loading' : 'Idle' }}</div>
+  <div><b>Enabled: </b> {{ scrollComponent?.enabled | json }}</div>
 </fieldset>
+<br>
+<div>
+  <button type="button" mat-raised-button (click)="enable()">Enable</button>
+  <button type="button" mat-raised-button (click)="disable()">Disable</button>
+</div>
