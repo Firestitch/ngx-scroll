@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
   OnDestroy,
-  EventEmitter,
+  EventEmitter, Inject,
 } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Observable } from 'rxjs/Observable';
@@ -14,6 +14,8 @@ import { filter, map, pairwise, tap } from 'rxjs/operators';
 
 import { FsScrollService } from '../../services';
 import { FsScrollInstance } from '../../classes';
+import { FS_SCROLL_DEFAULT_CONFIG } from '../../fs-scroll.providers';
+import { IScrollDefaultConfig } from '../../interfaces/scroll-default-config';
 
 
 @Component({
@@ -53,6 +55,9 @@ export class FsScrollComponent implements OnInit, OnDestroy {
     this.instance.loading = value;
   }
 
+  @Input() public endMessage;
+  @Input() public endIcon;
+
   @Output()
   get loadingChange(): Observable<boolean> {
     return this.instance.loading$;
@@ -69,7 +74,8 @@ export class FsScrollComponent implements OnInit, OnDestroy {
   public instance: FsScrollInstance;
 
   constructor(public scroll: FsScrollService,
-              private _el: ElementRef) {
+              private _el: ElementRef,
+              @Inject(FS_SCROLL_DEFAULT_CONFIG) private _defaultConfig: IScrollDefaultConfig) {
     this.instance = new FsScrollInstance();
   }
 
@@ -77,6 +83,15 @@ export class FsScrollComponent implements OnInit, OnDestroy {
     if (this.instance.name) {
       this.scroll.pushInstance(this.instance);
     }
+
+    if (this._defaultConfig.endMessage && !this.endMessage) {
+      this.endMessage = this._defaultConfig.endMessage;
+    }
+
+    if (this._defaultConfig.endIcon && !this.endIcon) {
+      this.endIcon = this._defaultConfig.endIcon;
+    }
+
     this.subscribeToScroll();
     this.subscribeDown();
 
