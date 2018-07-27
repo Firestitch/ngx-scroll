@@ -14,6 +14,7 @@ export class ExampleComponent implements OnInit {
   public page = 1;
   public loading = false;
   public completed = true;
+  public state = 'active';
   public scrollComponent: FsScrollInstance;
 
   constructor(private scroll: FsScrollService) {
@@ -34,6 +35,10 @@ export class ExampleComponent implements OnInit {
       this.records.push(...newRecords);
       this.loading = false;
     }, 500);
+  }
+
+  public destory() {
+    this.state = 'destoryed';
   }
 
   public enable() {

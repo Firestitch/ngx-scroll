@@ -99,7 +99,7 @@ export class FsScrollComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this.scroll.remove(this.name);
-    this.onScroll$.completed();
+    //this.onScroll$.completed();
   }
 
   public subscribeToScroll() {
