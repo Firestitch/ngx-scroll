@@ -9,58 +9,51 @@ import { FsScrollInstance } from '../../../../src/classes';
 })
 export class ExampleComponent implements OnInit {
 
-  public initialCount = 40;
   public records = [];
   public page = 1;
-  public loading = false;
-  public completed = true;
-  public state = 'active';
-  public scrollComponent: FsScrollInstance;
+  public state = 'idle';
 
-  constructor(private scroll: FsScrollService) {
-  }
+  constructor(private scroll: FsScrollService) {}
 
   public ngOnInit() {
-    this.records = this.generateArray(this.initialCount);
-
-    this.scroll.component('example1').subscribe((instance: FsScrollInstance) => {
-      console.log(instance);
-    });
+    this.records = this.generateArray();
   }
 
-  public loadMore() {
+  public load(fsScrollInstance) {
+
+    if (this.page > 10) {
+      fsScrollInstance.complete();
+      this.state = 'completed';
+      return;
+    }
+
+    this.state = 'loading';
+    fsScrollInstance.loading();
     setTimeout(() => {
       this.page++;
-      const newRecords = this.generateArray(20, this.page);
+      const newRecords = this.generateArray();
       this.records.push(...newRecords);
-      this.loading = false;
-    }, 500);
+      this.state = 'idle';
+      fsScrollInstance.loaded();
+    }, 200);
   }
 
   public destory() {
-    this.state = 'destoryed';
+    this.page = 1;
+    this.records = [];
+    this.records = this.generateArray();
+    this.state = 'destroyed';
   }
 
   public enable() {
-    this.scrollComponent.enabled = true;
+    this.state = 'idle';
   }
 
-  public disable() {
-    this.scrollComponent.enabled = false;
-  }
-
-  private generateArray(count, offset = 1) {
+  private generateArray() {
     const recordsCount = this.records.length;
-    if (offset > 5) { // currentPage = countPages
-      this.completed = true;
-      return [];
-    } else {
-      this.completed = false;
-
-      return Array.apply(null, { length: count })
-        .map((value, index) => {
-          return recordsCount + (index + 1);
-        });
-    }
+    return Array.apply(null, { length: 50 })
+      .map((value, index) => {
+        return recordsCount + (index + 1);
+      });
   }
 }

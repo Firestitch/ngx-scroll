@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMaterialModule } from './app/material.module';
 import { FsExampleModule } from '@firestitch/example';
 import {  ExampleComponent,
+          SubscribeComponent,
           ExamplesComponent } from './app/components';
 
 
@@ -33,7 +34,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ExamplesComponent,
-    ExampleComponent
+    ExampleComponent,
+    SubscribeComponent
   ],
   providers: [
   ],

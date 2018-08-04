@@ -1,24 +1,26 @@
-<div class="container" *ngIf="state=='active'"
+<div class="container" *ngIf="state!='destroyed'"
      fsScroll
-     [(loading)]="loading"
-     (load)="loadMore()"
-     [completed]="completed"
-     style="height: 200px">
-  <table>
-    <tr *ngFor="let record of records">
-      Record #{{record}}
-    </tr>
-  </table>
+     completeMessage="Everything has loaded"
+     completeIcon="done"
+     (load)="load($event)"
+     style="height: 500px">
+  <div style="height: 100%">
+    <div fsScrollContent>
+      <table>
+        <tr *ngFor="let record of records">
+          Record #{{record}}
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
 
 <fieldset>
-  <legend>Status</legend>
-  <div><b>Loading: </b> {{ loading ? 'Loading' : 'Idle' }}</div>
-  <div><b>Enabled: </b> {{ scrollComponent?.enabled | json }}</div>
+  <legend>State</legend>
+  <div>{{ state }}</div>
 </fieldset>
 <br>
 <div>
   <button type="button" mat-raised-button (click)="enable()">Enable</button>
-  <button type="button" mat-raised-button (click)="disable()">Disable</button>
   <button type="button" mat-raised-button (click)="destory()">Destory</button>
 </div>

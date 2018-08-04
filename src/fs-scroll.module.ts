@@ -1,11 +1,11 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
-import { FsScrollComponent } from './components';
+import { FsScrollComponent, FsScrollContentComponent } from './components';
 import { FsScrollService } from './services';
-import { IScrollDefaultConfig } from './interfaces/scroll-default-config';
-import { FS_SCROLL_DEFAULT_CONFIG } from './fs-scroll.providers';
-// import { FsComponentService } from './services';
+import { IScrollConfig } from './interfaces/scroll-config';
+import { FS_SCROLL_CONFIG } from './fs-scroll.providers';
+
 
 @NgModule({
   imports: [
@@ -15,24 +15,21 @@ import { FS_SCROLL_DEFAULT_CONFIG } from './fs-scroll.providers';
   ],
   exports: [
     FsScrollComponent,
-  ],
-  entryComponents: [
+    FsScrollContentComponent
   ],
   declarations: [
     FsScrollComponent,
-  ],
-  providers: [
-    // FsComponentService,
-  ],
+    FsScrollContentComponent
+  ]
 })
 export class FsScrollModule {
-  static forRoot(config: IScrollDefaultConfig = {}): ModuleWithProviders {
+  static forRoot(config?: IScrollConfig): ModuleWithProviders {
     return {
       ngModule: FsScrollModule,
       providers: [
         FsScrollService,
         {
-          provide: FS_SCROLL_DEFAULT_CONFIG,
+          provide: FS_SCROLL_CONFIG,
           useValue: config || {}
         }
       ]

@@ -1,11 +1,1 @@
-<!--<mat-spinner *ngIf="refreshing" [diameter]="50" class="fs-scroll-spinner"></mat-spinner>-->
 <ng-content></ng-content>
-<mat-spinner *ngIf="instance.loading" [diameter]="instance.loaderDiametr" class="fs-scroll-spinner"></mat-spinner>
-
-<div class="scroll-completed" *ngIf="!instance.loading && instance.completed">
-  <ng-template [ngIf]="endMessage" [ngIfElse]="defaultMessage">{{ endMessage }}</ng-template>
-  <ng-template #defaultMessage>That's everything!</ng-template>
-  &nbsp;&nbsp;
-  <ng-template [ngIf]="endIcon" [ngIfElse]="defaultIcon"><mat-icon>{{ endIcon }}</mat-icon></ng-template>
-  <ng-template #defaultIcon><mat-icon>thumb_up</mat-icon></ng-template>
-</div>

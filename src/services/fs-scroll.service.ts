@@ -1,20 +1,30 @@
 import { Injectable } from '@angular/core';
 import { FsScrollInstance } from '../classes';
 import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs/Observable';
-import { publish, timeout } from 'rxjs/operators';
+import { timeout } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class FsScrollService {
 
-  private _instances = new Map<string, FsScrollInstance>();
-  private _pendingInstances = new Map<string, Subject<any>>();
+  private _instances = (<any>window).FsScrollServiceInstances;
+  private _pendingInstances = (<any>window).FsScrollServicePendingInstances;
 
-  constructor() {}
+  constructor() {
+    if (!(<any>window).FsScrollServiceInstances) {
+      (<any>window).FsScrollServiceInstances = new Map<string, FsScrollInstance>();
+      this._instances = (<any>window).FsScrollServiceInstances;
+    }
+
+    if (!(<any>window).FsScrollServicePendingInstances) {
+      (<any>window).FsScrollServicePendingInstances = new Map<string, FsScrollInstance>();
+      this._pendingInstances = (<any>window).FsScrollServicePendingInstances;
+    }
+  }
 
   public pushInstance(instance) {
+
     if (!instance.name) {
       throw Error('FsScroll must have a name');
     }
@@ -29,7 +39,7 @@ export class FsScrollService {
     }
   }
 
-  public component(name) {
+  public component(name): Observable<any> {
     if (this._instances.has(name)) {
       return of(this._instances.get(name))
     } else {
