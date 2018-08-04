@@ -8,9 +8,7 @@ import {
   OnDestroy,
   EventEmitter,
   Inject,
-  ContentChild,
-  QueryList,
-  ViewChild
+  ContentChild
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -77,7 +75,7 @@ export class FsScrollComponent implements OnInit, OnDestroy {
     return this.instance.loadingObservable;
   }
 
-  @HostBinding('class.fs-scroll-wrapper') public selfClass = true;
+  @HostBinding('class.fs-scroll') public selfClass = true;
 
   public instance: FsScrollInstance;
 

@@ -1,10 +1,10 @@
-<div class="container" *ngIf="state!='destroyed'"
+<div *ngIf="state!='destroyed'"
      fsScroll
      completeMessage="Everything has loaded"
      completeIcon="done"
      (load)="load($event)"
      style="height: 500px">
-  <div style="height: 100%">
+  <div>
     <div fsScrollContent>
       <table>
         <tr *ngFor="let record of records">
