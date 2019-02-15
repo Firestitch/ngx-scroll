@@ -1,8 +1,11 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
-import { FsScrollComponent, FsScrollContentComponent } from './components';
-import { FsScrollService } from './services';
+
+import { FsScrollComponent } from './components/scroll/scroll.component';
+import { FsScrollContentComponent } from './components/scroll-content/scroll-content.component';
+
+import { FsScrollService } from './services/scroll.service';
 import { IScrollConfig } from './interfaces/scroll-config';
 import { FS_SCROLL_CONFIG } from './fs-scroll.providers';
 

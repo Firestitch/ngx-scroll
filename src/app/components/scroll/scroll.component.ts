@@ -10,19 +10,20 @@ import {
   Inject,
   ContentChild
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
-import { FsScrollService } from '../../services';
-import { FsScrollInstance } from '../../classes';
+import { Observable } from 'rxjs/';
+
+import { FsScrollService } from '../../services/scroll.service';
+import { FsScrollInstance } from '../../classes/scroll-instance';
 import { FS_SCROLL_CONFIG } from '../../fs-scroll.providers';
 import { IScrollConfig } from '../../interfaces/scroll-config';
-import { FsScrollContentComponent } from '../fs-scroll-content';
+import { FsScrollContentComponent } from '../scroll-content/scroll-content.component';
 
 
 @Component({
   selector: '[fsScroll]',
-  templateUrl: 'fs-scroll.component.html',
-  styleUrls: [ 'fs-scroll.component.scss' ]
+  templateUrl: 'scroll.component.html',
+  styleUrls: [ 'scroll.component.scss' ]
 })
 export class FsScrollComponent implements OnInit, OnDestroy {
 

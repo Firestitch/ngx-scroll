@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FsScrollInstance } from '../classes';
-import { of } from 'rxjs/observable/of';
+
+import { of, Subject, Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+
+import { FsScrollInstance } from '../classes/scroll-instance';
 
 @Injectable()
 export class FsScrollService {

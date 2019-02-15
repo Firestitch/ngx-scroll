@@ -1,14 +1,11 @@
-import { ElementRef, Component } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/throttleTime';
-import { FsScrollService } from '../services';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { filter, map, pairwise, tap } from 'rxjs/operators';
+import { ElementRef } from '@angular/core';
+
+import { Subject, BehaviorSubject, Observable, Subscription, fromEvent } from 'rxjs';
+import { filter, map, throttleTime } from 'rxjs/operators';
+
+import { FsScrollService } from '../services/scroll.service';
 import { IScrollConfig } from '../interfaces/scroll-config';
-import { FsScrollComponent } from '../components/fs-scroll';
+import { FsScrollComponent } from '../components/scroll/scroll.component';
 
 export class FsScrollInstance {
 
@@ -140,8 +137,8 @@ export class FsScrollInstance {
 
   private subscribeToScroll() {
     this._scroll = fromEvent(this._el.nativeElement, 'scroll')
-      .throttleTime(10)
       .pipe(
+        throttleTime(10),
         map((e: any) => ({
           scrollHeight: e.target.scrollHeight,
           scrollTop: e.target.scrollTop,

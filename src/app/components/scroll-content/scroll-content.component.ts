@@ -7,8 +7,8 @@ import {
 
 @Component({
   selector: '[fsScrollContent]',
-  templateUrl: 'fs-scroll-content.component.html',
-  styleUrls: [ 'fs-scroll-content.component.scss' ]
+  templateUrl: 'scroll-content.component.html',
+  styleUrls: [ 'scroll-content.component.scss' ]
 })
 export class FsScrollContentComponent {
 

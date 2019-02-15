@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FsScrollService } from '../../../../src/services';
-import { FsScrollInstance } from '../../../../src/classes';
+import { FsScrollService, FsScrollInstance } from '@firestitch/scroll';
 
 
 @Component({
