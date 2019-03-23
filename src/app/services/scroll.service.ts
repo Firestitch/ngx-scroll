@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { of, Subject, Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 
-import { FsScrollInstance } from '../classes/scroll-instance';
+import { FsScrollInstance } from '../services/scroll-instance';
 
 @Injectable()
 export class FsScrollService {

@@ -8,13 +8,13 @@ import {
   OnDestroy,
   EventEmitter,
   Inject,
-  ContentChild
+  ContentChild,
 } from '@angular/core';
 
-import { Observable } from 'rxjs/';
+import { Observable } from 'rxjs';
 
 import { FsScrollService } from '../../services/scroll.service';
-import { FsScrollInstance } from '../../classes/scroll-instance';
+import { FsScrollInstance } from '../../services/scroll-instance';
 import { FS_SCROLL_CONFIG } from '../../fs-scroll.providers';
 import { IScrollConfig } from '../../interfaces/scroll-config';
 import { FsScrollContentComponent } from '../scroll-content/scroll-content.component';
@@ -23,7 +23,8 @@ import { FsScrollContentComponent } from '../scroll-content/scroll-content.compo
 @Component({
   selector: '[fsScroll]',
   templateUrl: 'scroll.component.html',
-  styleUrls: [ 'scroll.component.scss' ]
+  styleUrls: [ 'scroll.component.scss' ],
+  providers: [ FsScrollInstance ],
 })
 export class FsScrollComponent implements OnInit, OnDestroy {
 
@@ -78,21 +79,15 @@ export class FsScrollComponent implements OnInit, OnDestroy {
 
   @HostBinding('class.fs-scroll') public selfClass = true;
 
-  public instance: FsScrollInstance;
-
   constructor(private fsScrollService: FsScrollService,
+              public instance: FsScrollInstance,
               public _el: ElementRef,
               @Inject(FS_SCROLL_CONFIG) private config: IScrollConfig) {
-    this.instance = new FsScrollInstance(fsScrollService, Object.assign({}, this.config));
   }
 
   public ngOnInit() {
 
     this.instance.init(this);
-
-    if (this.scrollContentComponent) {
-      this.scrollContentComponent.instance = this.instance;
-    }
 
     if (this._load.observers.length) {
       this.instance.subscribe(() => {

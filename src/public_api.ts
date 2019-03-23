@@ -19,4 +19,4 @@ export { IScrollConfig } from './app/interfaces/scroll-config';
 export { FsScrollService } from './app/services/scroll.service';
 
 // Classes
-export { FsScrollInstance } from './app/classes/scroll-instance';
+export { FsScrollInstance } from './app/services/scroll-instance';

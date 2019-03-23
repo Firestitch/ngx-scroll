@@ -1,4 +1,4 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, Inject, Injectable, NgZone } from '@angular/core';
 
 import { Subject, BehaviorSubject, Observable, Subscription, fromEvent } from 'rxjs';
 import { filter, map, throttleTime } from 'rxjs/operators';
@@ -6,13 +6,15 @@ import { filter, map, throttleTime } from 'rxjs/operators';
 import { FsScrollService } from '../services/scroll.service';
 import { IScrollConfig } from '../interfaces/scroll-config';
 import { FsScrollComponent } from '../components/scroll/scroll.component';
+import { FS_SCROLL_CONFIG } from '../fs-scroll.providers';
 
+
+@Injectable()
 export class FsScrollInstance {
 
   public name: string;
   public enabled = true;
   public complete$ = false;
-  public config: IScrollConfig;
 
   private _loading = new BehaviorSubject<boolean>(false);
   private _loaded = new Subject();
@@ -20,18 +22,20 @@ export class FsScrollInstance {
   private _el: ElementRef;
   private _component: FsScrollComponent;
   private _contentElement: ElementRef;
-  private _fsScroll: FsScrollService;
   private _scroll: Observable<any>;
   private reloadSubscription = null;
   private contentHeight = null;
   private scrollTop = 0;
 
-  constructor(fsScroll: FsScrollService, config: IScrollConfig) {
-    this._fsScroll = fsScroll;
-    this.config = config;
+  constructor(
+    @Inject(FS_SCROLL_CONFIG) public config: IScrollConfig,
+    private _fsScroll: FsScrollService,
+    private _zone: NgZone,
+  ) {
+    this.config = Object.assign({}, config);
 
-    config.spinnerDiameter = config.spinnerDiameter || 40;
-    config.scrollThreshold = config.scrollThreshold || 1000;
+    this.config.spinnerDiameter = this.config.spinnerDiameter || 40;
+    this.config.scrollThreshold = this.config.scrollThreshold || 1000;
   }
 
   public init(component: FsScrollComponent) {
@@ -42,8 +46,10 @@ export class FsScrollInstance {
       this._fsScroll.pushInstance(this);
     }
 
-    this.subscribeToScroll();
-    this.subscribeDown();
+    this._zone.runOutsideAngular(() => {
+      this.subscribeToScroll();
+      this.subscribeDown();
+    });
   }
 
   get isLoading() {
@@ -138,7 +144,7 @@ export class FsScrollInstance {
   private subscribeToScroll() {
     this._scroll = fromEvent(this._el.nativeElement, 'scroll')
       .pipe(
-        throttleTime(10),
+        throttleTime(20),
         map((e: any) => ({
           scrollHeight: e.target.scrollHeight,
           scrollTop: e.target.scrollTop,
@@ -150,10 +156,11 @@ export class FsScrollInstance {
   private subscribeDown() {
     this._scroll
       .pipe(
+        throttleTime(20),
         filter(() => !this.isLoading && !this.isComplete && this.enabled),
-        filter(e =>
-          this.isUserScrollingDown(e) && this.isScrollThresholdExceeded(e)
-        )
+        filter(e => {
+          return this.isUserScrollingDown(e) && this.isScrollThresholdExceeded(e)
+        })
       )
       .subscribe(() => {
         this._load.next(this);
@@ -167,7 +174,6 @@ export class FsScrollInstance {
   }
 
   private isScrollThresholdExceeded(e) {
-    console.log(e);
     return e.scrollHeight < (e.scrollTop + e.clientHeight + this.config.scrollThreshold);
   }
 }

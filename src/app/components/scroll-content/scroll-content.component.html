@@ -1,7 +1,7 @@
 <ng-content></ng-content>
-<mat-spinner *ngIf="instance.isLoading" [diameter]="instance.config.spinnerDiameter" class="fs-scroll-spinner"></mat-spinner>
+<mat-spinner *ngIf="instance?.isLoading" [diameter]="instance?.config.spinnerDiameter" class="fs-scroll-spinner"></mat-spinner>
 
-<div class="scroll-complete" *ngIf="!instance.isLoading && instance.isComplete && (instance.config.completeMessage || instance.config.completeIcon)">
+<div class="scroll-complete" *ngIf="instance && !instance.isLoading && instance.isComplete && (instance.config.completeMessage || instance.config.completeIcon)">
   <span *ngIf="instance.config.completeMessage" class="scroll-complete-message">{{ instance.config.completeMessage }}</span>
   <span *ngIf="instance.config.completeIcon" class="scroll-complete-icon"><mat-icon>{{ instance.config.completeIcon }}</mat-icon></span>
 </div>
