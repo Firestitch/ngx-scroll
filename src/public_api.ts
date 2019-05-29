@@ -17,6 +17,7 @@ export { IScrollConfig } from './app/interfaces/scroll-config';
 
 // Services
 export { FsScrollService } from './app/services/scroll.service';
+export { FsDocumentScrollService } from './app/services/document-scroll.service';
 
 // Classes
 export { FsScrollInstance } from './app/services/scroll-instance';

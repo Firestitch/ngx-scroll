@@ -8,6 +8,7 @@ import { FsScrollContentComponent } from './components/scroll-content/scroll-con
 import { FsScrollService } from './services/scroll.service';
 import { IScrollConfig } from './interfaces/scroll-config';
 import { FS_SCROLL_CONFIG } from './fs-scroll.providers';
+import { FsDocumentScrollService } from './services/document-scroll.service';
 
 
 @NgModule({
@@ -23,6 +24,9 @@ import { FS_SCROLL_CONFIG } from './fs-scroll.providers';
   declarations: [
     FsScrollComponent,
     FsScrollContentComponent
+  ],
+  providers: [
+    FsDocumentScrollService
   ]
 })
 export class FsScrollModule {
@@ -31,6 +35,7 @@ export class FsScrollModule {
       ngModule: FsScrollModule,
       providers: [
         FsScrollService,
+        FsDocumentScrollService,
         {
           provide: FS_SCROLL_CONFIG,
           useValue: config || {}

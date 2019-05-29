@@ -12,7 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AppMaterialModule } from './material.module';
 import { AppComponent } from './app.component';
-import { ExampleComponent, ExamplesComponent, SubscribeComponent } from './components';
+import { ExampleComponent, ExamplesComponent, SubscribeComponent, DocumentScrollComponent } from './components';
 
 
 const routes: Routes = [
@@ -32,12 +32,12 @@ const routes: Routes = [
     FsMessageModule.forRoot(),
     RouterModule.forRoot(routes),
   ],
-  entryComponents: [],
   declarations: [
     AppComponent,
     ExamplesComponent,
     ExampleComponent,
-    SubscribeComponent
+    SubscribeComponent,
+    DocumentScrollComponent
   ],
   providers: [],
 })
