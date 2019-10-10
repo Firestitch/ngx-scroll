@@ -4,6 +4,7 @@ import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 
 import { FsScrollComponent } from './components/scroll/scroll.component';
 import { FsScrollContentComponent } from './components/scroll-content/scroll-content.component';
+import { FsScrollContentFooterComponent } from './components/scroll-content-footer/scroll-content-footer.component';
 
 import { FsScrollService } from './services/scroll.service';
 import { IScrollConfig } from './interfaces/scroll-config';
@@ -23,7 +24,8 @@ import { FsDocumentScrollService } from './services/document-scroll.service';
   ],
   declarations: [
     FsScrollComponent,
-    FsScrollContentComponent
+    FsScrollContentComponent,
+    FsScrollContentFooterComponent,
   ],
   providers: [
     FsDocumentScrollService

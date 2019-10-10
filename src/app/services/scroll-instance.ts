@@ -14,9 +14,9 @@ export class FsScrollInstance {
 
   public name: string;
   public enabled = true;
-  public complete$ = false;
 
   private _loading = new BehaviorSubject<boolean>(false);
+  private _completed = new BehaviorSubject<boolean>(false);
   private _loaded = new Subject();
   private _load = new Subject();
   private _el: ElementRef;
@@ -56,12 +56,20 @@ export class FsScrollInstance {
     return this._loading.getValue();
   }
 
-  get isComplete() {
-    return this.complete$;
+  get isLoading$() {
+    return this._loading.asObservable();
+  }
+
+  get completed$() {
+    return this._completed.asObservable();
+  }
+
+  get completed() {
+    return this._completed.getValue();
   }
 
   public complete() {
-    this.complete$ = true;
+    this._completed.next(true);
   }
 
   get loadingObservable(): Observable<boolean> {
@@ -85,6 +93,7 @@ export class FsScrollInstance {
     this._loading.complete();
     this._loaded.complete();
     this._load.complete();
+    this._completed.complete();
   }
 
   public subscribe(fn: (value?: any) => void): Subscription {
@@ -128,7 +137,7 @@ export class FsScrollInstance {
     setTimeout(() => {
 
       const contentHeight = this._contentElement.nativeElement.offsetHeight;
-      if (!this.isComplete &&
+      if (!this.completed &&
           contentHeight <= this._el.nativeElement.offsetHeight &&
           this.contentHeight !==  contentHeight) {
 
@@ -157,7 +166,7 @@ export class FsScrollInstance {
     this._scroll
       .pipe(
         throttleTime(20),
-        filter(() => !this.isLoading && !this.isComplete && this.enabled),
+        filter(() => !this.isLoading && !this.completed && this.enabled),
         filter(e => {
           return this.isUserScrollingDown(e) && this.isScrollThresholdExceeded(e)
         })

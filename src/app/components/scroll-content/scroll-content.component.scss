@@ -1,21 +1,7 @@
-::ng-deep {
-  .fs-scroll-content {
-    display: block;
-  }
-}
-
-.fs-scroll-spinner {
-  margin: 0 auto;
-}
-
-.scroll-complete {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #7d7d7f;
-
-  .scroll-complete-message,
-  .scroll-complete-icon {
-    margin: 0 4px;
+:host {
+  ::ng-deep {
+    .fs-scroll-content {
+      display: block;
+    }
   }
 }

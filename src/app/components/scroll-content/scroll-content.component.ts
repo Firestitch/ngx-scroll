@@ -1,14 +1,11 @@
-import {
-  Component,
-  ElementRef,
-  HostBinding
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding } from '@angular/core';
 import { FsScrollInstance } from '../../services/scroll-instance';
 
 @Component({
   selector: '[fsScrollContent]',
   templateUrl: 'scroll-content.component.html',
-  styleUrls: [ 'scroll-content.component.scss' ]
+  styleUrls: [ 'scroll-content.component.scss' ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FsScrollContentComponent {
 

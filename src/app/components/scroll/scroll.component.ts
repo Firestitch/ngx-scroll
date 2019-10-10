@@ -1,14 +1,15 @@
 import {
+  ChangeDetectionStrategy,
   Component,
+  ContentChild,
   ElementRef,
+  EventEmitter,
   HostBinding,
+  Inject,
   Input,
+  OnDestroy,
   OnInit,
   Output,
-  OnDestroy,
-  EventEmitter,
-  Inject,
-  ContentChild,
 } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -25,6 +26,7 @@ import { FsScrollContentComponent } from '../scroll-content/scroll-content.compo
   templateUrl: 'scroll.component.html',
   styleUrls: [ 'scroll.component.scss' ],
   providers: [ FsScrollInstance ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FsScrollComponent implements OnInit, OnDestroy {
 
