@@ -32,7 +32,7 @@ export class FsScrollComponent implements OnInit, OnDestroy {
 
   private _load = new EventEmitter;
 
-  @ContentChild (FsScrollContentComponent) scrollContentComponent: FsScrollContentComponent;
+  @ContentChild (FsScrollContentComponent, { static: false }) scrollContentComponent: FsScrollContentComponent;
 
   @Input('name')
   set name(value) {
