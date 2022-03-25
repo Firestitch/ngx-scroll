@@ -33,7 +33,7 @@ import { FsDocumentScrollService } from './services/document-scroll.service';
   ]
 })
 export class FsScrollModule {
-  static forRoot(config?: IScrollConfig): ModuleWithProviders {
+  static forRoot(config?: IScrollConfig): ModuleWithProviders<FsScrollModule> {
     return {
       ngModule: FsScrollModule,
       providers: [
