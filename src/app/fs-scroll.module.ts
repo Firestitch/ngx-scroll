@@ -11,6 +11,7 @@ import { FsScrollService } from './services/scroll.service';
 import { IScrollConfig } from './interfaces/scroll-config';
 import { FS_SCROLL_CONFIG } from './fs-scroll.providers';
 import { FsDocumentScrollService } from './services/document-scroll.service';
+import { FsScrollAnchorDirective } from './directives/scroll-anchor.directive';
 
 
 @NgModule({
@@ -21,12 +22,14 @@ import { FsDocumentScrollService } from './services/document-scroll.service';
   ],
   exports: [
     FsScrollComponent,
-    FsScrollContentComponent
+    FsScrollContentComponent,
+    FsScrollAnchorDirective,
   ],
   declarations: [
     FsScrollComponent,
     FsScrollContentComponent,
     FsScrollContentFooterComponent,
+    FsScrollAnchorDirective,
   ],
   providers: [
     FsDocumentScrollService

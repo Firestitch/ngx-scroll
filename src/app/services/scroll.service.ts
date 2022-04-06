@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DOCUMENT, Location } from '@angular/common';
 
 import { of, Subject, Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 
 import { FsScrollInstance } from '../services/scroll-instance';
+
 
 @Injectable()
 export class FsScrollService {
@@ -11,7 +14,13 @@ export class FsScrollService {
   private _instances = (<any>window).FsScrollServiceInstances;
   private _pendingInstances = (<any>window).FsScrollServicePendingInstances;
 
-  constructor() {
+  constructor(
+    @Inject(DOCUMENT)
+    private _document: Document,
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _location: Location,
+  ) {
     if (!(<any>window).FsScrollServiceInstances) {
       (<any>window).FsScrollServiceInstances = new Map<string, FsScrollInstance>();
       this._instances = (<any>window).FsScrollServiceInstances;
@@ -59,5 +68,44 @@ export class FsScrollService {
     }
 
     this._instances.delete(name);
+  }
+
+  public scrollToAnchor(name: string, args?: ScrollIntoViewOptions): void {
+    const elem = this._document.querySelector(`[fsScrollAnchor="${name}"]`);
+
+    if (!!elem) {
+      const scrollArgs = {
+        ...{
+          block: 'center',
+          behavior: 'smooth',
+        },
+        ...args,
+      }
+      elem.scrollIntoView(scrollArgs as ScrollIntoViewOptions);
+    }
+  }
+
+
+  public scrollToQueryParamAnchor(args?: ScrollIntoViewOptions): void {
+    const anchor = this._route.snapshot.queryParams.anchor;
+
+    this.scrollToAnchor(anchor, args);
+    this.clearAnchor();
+  }
+
+  public setAnchor(name: string): void {
+    const url = this._router
+      .createUrlTree([], {
+        relativeTo: this._route,
+        queryParams: { anchor: name },
+        queryParamsHandling: 'merge',
+      })
+      .toString();
+
+    this._location.replaceState(url);
+  }
+
+  public clearAnchor(): void {
+    this.setAnchor(null);
   }
 }
