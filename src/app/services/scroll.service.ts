@@ -90,7 +90,6 @@ export class FsScrollService {
     const anchor = this._route.snapshot.queryParams.anchor;
 
     this.scrollToAnchor(anchor, args);
-    this.clearAnchor();
   }
 
   public setAnchor(name: string): void {
