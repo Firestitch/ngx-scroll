@@ -4,7 +4,7 @@ import { FsDocumentScrollService } from 'src/app/services/document-scroll.servic
 
 @Component({
   selector: 'document-scroll',
-  templateUrl: 'document-scroll.component.html'
+  templateUrl: './document-scroll.component.html'
 })
 export class DocumentScrollComponent {
 

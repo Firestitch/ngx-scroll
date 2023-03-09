@@ -22,6 +22,4 @@ export class FsScrollContentFooterComponent {
 
   @Input()
   public spinnerDiameter: number;
-
-  constructor() {}
 }

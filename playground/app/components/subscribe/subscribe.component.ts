@@ -4,7 +4,7 @@ import { FsScrollService, FsScrollInstance } from '@firestitch/scroll';
 
 @Component({
   selector: 'subscribe',
-  templateUrl: 'subscribe.component.html'
+  templateUrl: './subscribe.component.html'
 })
 export class SubscribeComponent implements OnInit {
 
