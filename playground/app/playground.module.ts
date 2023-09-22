@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
 
-import { FsScrollModule } from '@firestitch/scroll';
 import { FsExampleModule } from '@firestitch/example';
 import { FsMessageModule } from '@firestitch/message';
+import { FsScrollModule } from '@firestitch/scroll';
 
-import { ToastrModule } from 'ngx-toastr';
-
-import { AppMaterialModule } from './material.module';
 import { AppComponent } from './app.component';
-import { ExampleComponent, ExamplesComponent, SubscribeComponent, DocumentScrollComponent } from './components';
+import { DocumentScrollComponent, ExampleComponent, ExamplesComponent, SubscribeComponent } from './components';
+import { AppMaterialModule } from './material.module';
 
 
 const routes: Routes = [
@@ -28,7 +26,6 @@ const routes: Routes = [
     AppMaterialModule,
     FormsModule,
     FsExampleModule.forRoot(),
-    ToastrModule.forRoot({ preventDuplicates: true }),
     FsMessageModule.forRoot(),
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
   ],
