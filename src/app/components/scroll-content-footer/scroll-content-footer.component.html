@@ -1,13 +1,21 @@
 <ng-content></ng-content>
-<mat-spinner *ngIf="loading" [diameter]="spinnerDiameter" class="fs-scroll-spinner"></mat-spinner>
+@if (loading) {
+  <mat-spinner [diameter]="spinnerDiameter" class="fs-scroll-spinner"></mat-spinner>
+}
 
-<div class="scroll-complete"
-     *ngIf="!loading
-     && completed
-     && (completeMessage || completeIcon)
-">
-  <span *ngIf="completeMessage" class="scroll-complete-message">{{ completeMessage }}</span>
-  <span *ngIf="completeIcon" class="scroll-complete-icon"><mat-icon>{{ completeIcon }}</mat-icon></span>
-</div>
+@if (!loading
+  && completed
+  && (completeMessage || completeIcon)
+  ) {
+  <div class="scroll-complete"
+    >
+    @if (completeMessage) {
+      <span class="scroll-complete-message">{{ completeMessage }}</span>
+    }
+    @if (completeIcon) {
+      <span class="scroll-complete-icon"><mat-icon>{{ completeIcon }}</mat-icon></span>
+    }
+  </div>
+}
 
 <ng-template></ng-template>

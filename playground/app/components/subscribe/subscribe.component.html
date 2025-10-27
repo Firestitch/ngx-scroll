@@ -1,12 +1,14 @@
 <div class="container"
-     fsScroll
-     name="scroll-subscribe"
-     style="height: 200px">
+  fsScroll
+  name="scroll-subscribe"
+  style="height: 200px">
   <div fsScrollContent>
     <table>
-      <tr *ngFor="let record of records">
-        Record #{{record}}
-      </tr>
+      @for (record of records; track record) {
+        <tr>
+          Record #{{record}}
+        </tr>
+      }
     </table>
-</div>
+  </div>
 </div>

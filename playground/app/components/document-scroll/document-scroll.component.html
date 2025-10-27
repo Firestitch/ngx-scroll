@@ -1,4 +1,8 @@
 <div>
-  <button type="button" mat-raised-button (click)="enable()" *ngIf="!enabled">Enable Document Scrolling</button>
-  <button type="button" mat-raised-button (click)="disable()" *ngIf="enabled">Disable Document Scrolling</button>
+  @if (!enabled) {
+    <button type="button" mat-raised-button (click)="enable()">Enable Document Scrolling</button>
+  }
+  @if (enabled) {
+    <button type="button" mat-raised-button (click)="disable()">Disable Document Scrolling</button>
+  }
 </div>

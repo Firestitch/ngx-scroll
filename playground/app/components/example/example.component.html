@@ -1,26 +1,30 @@
-<div *ngIf="state!='destroyed'"
-     fsScroll
-     completeMessage="Everything has loaded"
-     completeIcon="done"
-     (load)="load($event)"
-     style="height: 500px">
-  <div>
-    <div fsScrollContent>
-      <table>
-        <tr *ngFor="let record of records">
-          Record #{{record}}
-        </tr>
-      </table>
+@if (state!='destroyed') {
+  <div
+    fsScroll
+    completeMessage="Everything has loaded"
+    completeIcon="done"
+    (load)="load($event)"
+    style="height: 500px">
+    <div>
+      <div fsScrollContent>
+        <table>
+          @for (record of records; track record) {
+            <tr>
+              Record #{{record}}
+            </tr>
+          }
+        </table>
+      </div>
     </div>
   </div>
-</div>
+}
 
 <fieldset>
   <legend>State</legend>
   <div>{{ state }}</div>
 </fieldset>
 <br>
-<div>
-  <button type="button" mat-raised-button (click)="enable()">Enable</button>
-  <button type="button" mat-raised-button (click)="destory()">Destory</button>
-</div>
+  <div>
+    <button type="button" mat-raised-button (click)="enable()">Enable</button>
+    <button type="button" mat-raised-button (click)="destory()">Destory</button>
+  </div>
