@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DOCUMENT, Location } from '@angular/common';
 
@@ -10,17 +10,16 @@ import { FsScrollInstance } from '../services/scroll-instance';
 
 @Injectable()
 export class FsScrollService {
+  private _document = inject<Document>(DOCUMENT);
+  private _route = inject(ActivatedRoute);
+  private _router = inject(Router);
+  private _location = inject(Location);
+
 
   private _instances = (<any>window).FsScrollServiceInstances;
   private _pendingInstances = (<any>window).FsScrollServicePendingInstances;
 
-  constructor(
-    @Inject(DOCUMENT)
-    private _document: Document,
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _location: Location,
-  ) {
+  constructor() {
     if (!(<any>window).FsScrollServiceInstances) {
       (<any>window).FsScrollServiceInstances = new Map<string, FsScrollInstance>();
       this._instances = (<any>window).FsScrollServiceInstances;

@@ -1,16 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ContentChild,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
@@ -30,6 +18,11 @@ import { FsScrollContentComponent } from '../scroll-content/scroll-content.compo
     standalone: true,
 })
 export class FsScrollComponent implements OnInit, OnDestroy {
+  private fsScrollService = inject(FsScrollService);
+  instance = inject(FsScrollInstance);
+  _el = inject(ElementRef);
+  private config = inject<IScrollConfig>(FS_SCROLL_CONFIG);
+
 
   private _load = new EventEmitter;
 
@@ -81,12 +74,6 @@ export class FsScrollComponent implements OnInit, OnDestroy {
   }
 
   @HostBinding('class.fs-scroll') public selfClass = true;
-
-  constructor(private fsScrollService: FsScrollService,
-              public instance: FsScrollInstance,
-              public _el: ElementRef,
-              @Inject(FS_SCROLL_CONFIG) private config: IScrollConfig) {
-  }
 
   public ngOnInit() {
 

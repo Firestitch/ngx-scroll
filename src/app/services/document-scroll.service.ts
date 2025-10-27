@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { BlockScrollStrategy } from '@angular/cdk/overlay';
 
 
 @Injectable()
 export class FsDocumentScrollService {
+  private viewportRuler = inject(ViewportRuler);
+
 
   private _blockScrollStrategy: BlockScrollStrategy;
-
-  constructor(private viewportRuler: ViewportRuler) {}
 
   public disable() {
     this.getBlockScrollStrategy().enable();

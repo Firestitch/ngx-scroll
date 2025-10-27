@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FsScrollService, FsScrollInstance } from '@firestitch/scroll';
 import { FsScrollComponent } from '../../../../src/app/components/scroll/scroll.component';
 import { FsScrollContentComponent } from '../../../../src/app/components/scroll-content/scroll-content.component';
@@ -11,12 +11,12 @@ import { FsScrollContentComponent } from '../../../../src/app/components/scroll-
     imports: [FsScrollComponent, FsScrollContentComponent]
 })
 export class SubscribeComponent implements OnInit {
+  private scroll = inject(FsScrollService);
+
 
   public records = [];
   public page = 1;
   public fsScrollInstance: FsScrollInstance;
-
-  constructor(private scroll: FsScrollService) {}
 
   public ngOnInit() {
 

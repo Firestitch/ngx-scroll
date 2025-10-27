@@ -1,4 +1,4 @@
-import { Directive, HostBinding, HostListener, Input } from '@angular/core';
+import { Directive, HostBinding, HostListener, Input, inject } from '@angular/core';
 
 import { FsScrollService } from '../services/scroll.service';
 
@@ -8,6 +8,8 @@ import { FsScrollService } from '../services/scroll.service';
     standalone: true
 })
 export class FsScrollAnchorDirective {
+  private _scrollService = inject(FsScrollService);
+
 
   @Input('fsScrollAnchor')
   @HostBinding('attr.fsScrollAnchor')
@@ -15,9 +17,6 @@ export class FsScrollAnchorDirective {
 
   @Input()
   public target: string;
-
-  constructor(private _scrollService: FsScrollService) {
-  }
 
   @HostListener(
     'click',

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, inject } from '@angular/core';
 import { FsScrollInstance } from '../../services/scroll-instance';
 import { FsScrollContentFooterComponent } from '../scroll-content-footer/scroll-content-footer.component';
 import { AsyncPipe } from '@angular/common';
@@ -12,11 +12,9 @@ import { AsyncPipe } from '@angular/common';
     imports: [FsScrollContentFooterComponent, AsyncPipe],
 })
 export class FsScrollContentComponent {
+  el = inject(ElementRef);
+  instance = inject(FsScrollInstance);
+
 
   @HostBinding('class.fs-scroll-content') public selfClass = true;
-
-  constructor(
-    public el: ElementRef,
-    public instance: FsScrollInstance,
-  ) {}
 }

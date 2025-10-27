@@ -1,4 +1,4 @@
-import { ElementRef, Inject, Injectable, NgZone } from '@angular/core';
+import { ElementRef, Injectable, NgZone, inject } from '@angular/core';
 
 import { Subject, BehaviorSubject, Observable, Subscription, fromEvent } from 'rxjs';
 import { filter, map, throttleTime } from 'rxjs/operators';
@@ -11,6 +11,10 @@ import { FS_SCROLL_CONFIG } from '../fs-scroll.providers';
 
 @Injectable()
 export class FsScrollInstance {
+  config = inject<IScrollConfig>(FS_SCROLL_CONFIG);
+  private _fsScroll = inject(FsScrollService);
+  private _zone = inject(NgZone);
+
 
   public name: string;
   public enabled = true;
@@ -27,11 +31,9 @@ export class FsScrollInstance {
   private contentHeight = null;
   private scrollTop = 0;
 
-  constructor(
-    @Inject(FS_SCROLL_CONFIG) public config: IScrollConfig,
-    private _fsScroll: FsScrollService,
-    private _zone: NgZone,
-  ) {
+  constructor() {
+    const config = this.config;
+
     this.config = Object.assign({}, config);
 
     this.config.spinnerDiameter = this.config.spinnerDiameter || 40;

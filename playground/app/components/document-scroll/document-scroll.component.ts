@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FsDocumentScrollService } from 'src/app/services/document-scroll.service';
 import { MatButton } from '@angular/material/button';
 
@@ -10,10 +10,10 @@ import { MatButton } from '@angular/material/button';
     imports: [MatButton]
 })
 export class DocumentScrollComponent {
+  private documentScrollService = inject(FsDocumentScrollService);
+
 
   public enabled = true;
-
-  constructor(private documentScrollService: FsDocumentScrollService) {}
 
 
   public disable() {
