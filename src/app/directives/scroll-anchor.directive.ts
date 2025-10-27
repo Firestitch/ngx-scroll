@@ -4,7 +4,8 @@ import { FsScrollService } from '../services/scroll.service';
 
 
 @Directive({
-  selector: '[fsScrollAnchor]'
+    selector: '[fsScrollAnchor]',
+    standalone: true
 })
 export class FsScrollAnchorDirective {
 

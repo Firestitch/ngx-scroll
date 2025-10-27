@@ -1,11 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
 
 
 @Component({
-  selector: 'fs-scroll-content-footer',
-  templateUrl: 'scroll-content-footer.component.html',
-  styleUrls: [ 'scroll-content-footer.component.scss' ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fs-scroll-content-footer',
+    templateUrl: 'scroll-content-footer.component.html',
+    styleUrls: ['scroll-content-footer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [MatProgressSpinner, MatIcon],
 })
 export class FsScrollContentFooterComponent {
   @Input()

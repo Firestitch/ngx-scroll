@@ -22,11 +22,12 @@ import { FsScrollContentComponent } from '../scroll-content/scroll-content.compo
 
 
 @Component({
-  selector: '[fsScroll]',
-  templateUrl: 'scroll.component.html',
-  styleUrls: [ 'scroll.component.scss' ],
-  providers: [ FsScrollInstance ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: '[fsScroll]',
+    templateUrl: 'scroll.component.html',
+    styleUrls: ['scroll.component.scss'],
+    providers: [FsScrollInstance],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
 })
 export class FsScrollComponent implements OnInit, OnDestroy {
 

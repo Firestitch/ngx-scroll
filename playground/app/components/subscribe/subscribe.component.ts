@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FsScrollService, FsScrollInstance } from '@firestitch/scroll';
+import { FsScrollComponent } from '../../../../src/app/components/scroll/scroll.component';
+import { FsScrollContentComponent } from '../../../../src/app/components/scroll-content/scroll-content.component';
 
 
 @Component({
-  selector: 'subscribe',
-  templateUrl: './subscribe.component.html'
+    selector: 'subscribe',
+    templateUrl: './subscribe.component.html',
+    standalone: true,
+    imports: [FsScrollComponent, FsScrollContentComponent]
 })
 export class SubscribeComponent implements OnInit {
 

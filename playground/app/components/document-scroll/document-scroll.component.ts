@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { FsDocumentScrollService } from 'src/app/services/document-scroll.service';
+import { MatButton } from '@angular/material/button';
 
 
 @Component({
-  selector: 'document-scroll',
-  templateUrl: './document-scroll.component.html'
+    selector: 'document-scroll',
+    templateUrl: './document-scroll.component.html',
+    standalone: true,
+    imports: [MatButton]
 })
 export class DocumentScrollComponent {
 

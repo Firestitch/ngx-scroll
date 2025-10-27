@@ -15,25 +15,23 @@ import { FsScrollAnchorDirective } from './directives/scroll-anchor.directive';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-  ],
-  exports: [
-    FsScrollComponent,
-    FsScrollContentComponent,
-    FsScrollAnchorDirective,
-  ],
-  declarations: [
-    FsScrollComponent,
-    FsScrollContentComponent,
-    FsScrollContentFooterComponent,
-    FsScrollAnchorDirective,
-  ],
-  providers: [
-    FsDocumentScrollService
-  ]
+    imports: [
+        CommonModule,
+        MatProgressSpinnerModule,
+        MatIconModule,
+        FsScrollComponent,
+        FsScrollContentComponent,
+        FsScrollContentFooterComponent,
+        FsScrollAnchorDirective,
+    ],
+    exports: [
+        FsScrollComponent,
+        FsScrollContentComponent,
+        FsScrollAnchorDirective,
+    ],
+    providers: [
+        FsDocumentScrollService
+    ]
 })
 export class FsScrollModule {
   static forRoot(config?: IScrollConfig): ModuleWithProviders<FsScrollModule> {

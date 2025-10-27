@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FsScrollService, FsScrollInstance } from '@firestitch/scroll';
+import { FsScrollComponent } from '../../../../src/app/components/scroll/scroll.component';
+import { FsScrollContentComponent } from '../../../../src/app/components/scroll-content/scroll-content.component';
+import { MatButton } from '@angular/material/button';
 
 
 @Component({
-  selector: 'example',
-  templateUrl: './example.component.html'
+    selector: 'example',
+    templateUrl: './example.component.html',
+    standalone: true,
+    imports: [FsScrollComponent, FsScrollContentComponent, MatButton]
 })
 export class ExampleComponent implements OnInit {
 
